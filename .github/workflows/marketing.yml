@@ -1,0 +1,33 @@
+name: deploy-marketing
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'packages/marketing/**'
+
+defaults:
+  run:
+    working-directory: packages/marketing
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run build
+
+      - uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: arched-forest-416313
+        run: gsutil -m cp -r -p * gs://${{ secrets.PRODUCTION_BUCKET }}/marketing/latest}
+
+#      - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/marketing/latest/remoteEntry.js"
+#        env:
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
