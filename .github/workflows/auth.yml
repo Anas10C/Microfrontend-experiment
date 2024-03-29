@@ -25,7 +25,7 @@ jobs:
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           project_id: arched-forest-416313
-      - run: gsutil -m cp -r -p * gs://${{ secrets.PRODUCTION_BUCKET }}/auth/latest}
+       run: gsutil -m cp -r -p * gs://${{ secrets.PRODUCTION_BUCKET }}/auth/latest}
 
  #     - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/auth/latest/remoteEntry.js"
  #       env:
