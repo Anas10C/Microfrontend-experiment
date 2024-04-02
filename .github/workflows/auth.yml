@@ -20,12 +20,15 @@ jobs:
       - run: npm install
       - run: npm run build
 
-      - uses: google-github-actions/setup-gcloud@v0
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
         with:
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          project_id: arched-forest-416313
-      - run: gsutil -m cp -r -p * gs://${{ secrets.PRODUCTION_BUCKET }}/auth/latest}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+      - uses: google-github-actions/upload-cloud-storage@v2
+        with:
+          path: 'packages/auth'
+          destination: ${{ secrets.PRODUCTION_BUCKET }}/auth/latest
 
  #     - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/auth/latest/remoteEntry.js"
  #       env:
