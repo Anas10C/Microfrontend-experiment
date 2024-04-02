@@ -29,6 +29,7 @@ jobs:
         with:
           path: 'packages/marketing'
           destination: ${{ secrets.PRODUCTION_BUCKET }}/marketing/latest
+          parent: false
 
 #      - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/marketing/latest/remoteEntry.js"
 #        env:

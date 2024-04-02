@@ -30,6 +30,7 @@ jobs:
         with:
           path: 'packages/container'
           destination: ${{ secrets.PRODUCTION_BUCKET }}/container/latest
+          parent: false
 
 #      - run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/container/latest/index.html"
 #        env:
