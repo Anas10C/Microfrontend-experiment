@@ -25,7 +25,6 @@ jobs:
       - id: 'auth'
         uses: 'google-github-actions/auth@v2'
         with:
-          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           credentials_json: ${{ secrets.GCP_SA_KEY }}
       - uses: google-github-actions/upload-cloud-storage@v2
         with:
